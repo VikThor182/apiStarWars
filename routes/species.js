@@ -21,9 +21,9 @@ species.route('/')
           });
     })
 
-    species.route('/:_id')
+    species.route('/:pk')
     .get(async (req, res) => {
-        Species.findById(req.params, (err, docs) => {
+        Species.findOne(req.params, (err, docs) => {
             if(!err)res.send(docs);
             else console.log('can\'t find specie');
           });

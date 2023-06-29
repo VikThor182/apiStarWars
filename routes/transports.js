@@ -23,7 +23,7 @@ transports.route('/')
 
     transports.route('/:pk')
     .get(async (req, res) => {
-        Transports.findById(req.params, (err, docs) => {
+        Transports.findOne(req.params, (err, docs) => {
             if(!err)res.send(docs);
             else console.log('can\'t find transports');
           });

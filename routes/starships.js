@@ -21,9 +21,9 @@ starships.route('/')
           });
     })
 
-    starships.route('/:_id')
+    starships.route('/:pk')
     .get(async (req, res) => {
-        Starships.findById(req.params, (err, docs) => {
+        Starships.findOne(req.params, (err, docs) => {
             if(!err)res.send(docs);
             else console.log('can\'t find starship');
           });

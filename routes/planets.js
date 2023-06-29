@@ -21,9 +21,9 @@ planets.route('/')
           });
     })
 
-    planets.route('/:_id')
+    planets.route('/:pk')
     .get(async (req, res) => {
-        Planets.findById(req.params, (err, docs) => {
+        Planets.findOne(req.params, (err, docs) => {
             if(!err)res.send(docs);
             else console.log('can\'t find planet');
           });

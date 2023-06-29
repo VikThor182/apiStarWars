@@ -21,9 +21,9 @@ films.route('/')
           });
     })
 
-    films.route('/:_id')
+    films.route('/:pk')
     .get(async (req, res) => {
-        Film.findById(req.params, (err, docs) => {
+        Film.findOne(req.params, (err, docs) => {
             if(!err)res.send(docs);
             else console.log('can\'t find film');
           });
@@ -31,7 +31,7 @@ films.route('/')
     .put(async (req, res) => {
         try {
             const updatedFields = { ...req.body };
-            const updatedTransport = await Film.findOneAndUpdate({ pk: req.params.id }, { fields: updatedFields });
+            const updatedFilm = await Film.findOneAndUpdate({ pk: req.params.id }, { fields: updatedFields });
 
             if (!updatedFilm) {
                 return res.status(404).json({ error: "Film not found" });

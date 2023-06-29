@@ -23,7 +23,7 @@ vehicles.route('/')
 
     vehicles.route('/:pk')
     .get(async (req, res) => {
-        Vehicles.findById(req.params, (err, docs) => {
+        Vehicles.findOne(req.params, (err, docs) => {
             if(!err)res.send(docs);
             else console.log('can\'t find Vehicles');
           });
