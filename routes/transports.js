@@ -13,9 +13,7 @@ transports.route('/')
             model : 'resources.transports',
             pk : (new Date).getTime()
         });
-        console.log(transports)
         transports.save((err, docs) => {
-            console.log(transports);
             if(!err) res.send(docs);
               else console.log("Can't reach data "+ err)
           });

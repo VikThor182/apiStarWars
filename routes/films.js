@@ -13,9 +13,7 @@ films.route('/')
             model : 'resources.films',
             pk : (new Date).getTime()
         });
-        console.log(films)
         films.save((err, docs) => {
-            console.log(films);
             if(!err) res.send(docs);
               else console.log("Can't reach data "+ err)
           });

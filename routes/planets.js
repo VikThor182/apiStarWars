@@ -13,9 +13,7 @@ planets.route('/')
             model : 'resources.planets',
             pk : (new Date).getTime()
         });
-        console.log(planets)
         planets.save((err, docs) => {
-            console.log(planets);
             if(!err) res.send(docs);
               else console.log("Can't reach data "+ err)
           });

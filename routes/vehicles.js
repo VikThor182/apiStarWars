@@ -13,9 +13,7 @@ vehicles.route('/')
             model : 'resources.vehicles',
             pk : (new Date).getTime()
         });
-        console.log(vehicles)
         vehicles.save((err, docs) => {
-            console.log(vehicles);
             if(!err) res.send(docs);
               else console.log("Can't reach data "+ err)
           });

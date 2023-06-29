@@ -13,9 +13,7 @@ starships.route('/')
             model : 'resources.starships',
             pk : (new Date).getTime()
         });
-        console.log(starships)
         starships.save((err, docs) => {
-            console.log(starships);
             if(!err) res.send(docs);
               else console.log("Can't reach data "+ err)
           });

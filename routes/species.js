@@ -13,9 +13,7 @@ species.route('/')
             model : 'resources.species',
             pk : (new Date).getTime()
         });
-        console.log(species)
         species.save((err, docs) => {
-            console.log(species);
             if(!err) res.send(docs);
               else console.log("Can't reach data "+ err)
           });
