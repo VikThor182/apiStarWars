@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const url = 'mongodb+srv://vikthor182:5wyPO4FPZd8@cluster0.8ckqtbw.mongodb.net/?retryWrites=true&w=majority';
+const url = 'YOUR_TOKEN';
 
 
 const connectionParams={
