@@ -5,7 +5,8 @@ import Transports from '../model/transportModel.js'
 transports.route('/')
     .get(async (req, res) => {
         const transports = await Transports.find();
-        return res.status(200).json(transports);
+        if(!err) return res.status(200).send(transports);
+            else return res.status(500).json({ error : "internal server error"});
     })
     .post(async (req, res) => {
         const transports = new Transports({
@@ -14,16 +15,16 @@ transports.route('/')
             pk : (new Date).getTime()
         });
         transports.save((err, docs) => {
-            if(!err) res.send(docs);
-              else console.log("Can't reach data "+ err)
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
 
     transports.route('/:pk')
     .get(async (req, res) => {
         Transports.findOne(req.params, (err, docs) => {
-            if(!err)res.send(docs);
-            else console.log('can\'t find transports');
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
     .put(async (req, res) => {
@@ -42,8 +43,8 @@ transports.route('/')
     })
     .delete(async (req, res) => {
         Transports.deleteOne(req.params, (err, docs) => {
-            if(!err) console.log('transports deleted');
-            else console.log('Can\'t delete transports');
+            if(!err) return res.status(200).json({message : "Transport delete successfully"});
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
   

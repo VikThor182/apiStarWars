@@ -5,7 +5,8 @@ import Planets from '../model/planetsModel.js'
 planets.route('/')
     .get(async (req, res) => {
         const planets = await Planets.find();
-        return res.status(200).json(planets);
+        if(!err) return res.status(200).send(planets);
+        else return res.status.json({ error : "internal server error"})
     })
     .post(async (req, res) => {
         const planets = new Planets({
@@ -14,16 +15,16 @@ planets.route('/')
             pk : (new Date).getTime()
         });
         planets.save((err, docs) => {
-            if(!err) res.send(docs);
-              else console.log("Can't reach data "+ err)
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
 
     planets.route('/:pk')
     .get(async (req, res) => {
         Planets.findOne(req.params, (err, docs) => {
-            if(!err)res.send(docs);
-            else console.log('can\'t find planet');
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
     .put(async (req, res) => {
@@ -42,8 +43,8 @@ planets.route('/')
     })
     .delete(async (req, res) => {
         Planets.deleteOne(req.params, (err, docs) => {
-            if(!err) console.log('planet deleted');
-            else console.log('Can\'t delete planet');
+            if(!err)res.status(200).json({message: "Planet deleted successfully"});
+            else return res.status(500).json({ error : "internal server error"})
           });
     })
   

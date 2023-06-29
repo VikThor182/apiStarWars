@@ -5,7 +5,8 @@ import Starships from '../model/starshipsModel.js'
 starships.route('/')
     .get(async (req, res) => {
         const starships = await Starships.find();
-        return res.status(200).json(starships);
+        if(!err) return res.status(200).send(starships);
+        else return res.status(500).json({ error : "internal server error"})
     })
     .post(async (req, res) => {
         const starships = new Starships({
@@ -14,16 +15,16 @@ starships.route('/')
             pk : (new Date).getTime()
         });
         starships.save((err, docs) => {
-            if(!err) res.send(docs);
-              else console.log("Can't reach data "+ err)
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
 
     starships.route('/:pk')
     .get(async (req, res) => {
         Starships.findOne(req.params, (err, docs) => {
-            if(!err)res.send(docs);
-            else console.log('can\'t find starship');
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
     .put(async (req, res) => {
@@ -42,8 +43,8 @@ starships.route('/')
     })
     .delete(async (req, res) => {
         Starships.deleteOne(req.params, (err, docs) => {
-            if(!err) console.log('starship deleted');
-            else console.log('Can\'t delete starship');
+            if(!err) return res.status(200).json({ message : "Starship deleted successfully"});
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
   

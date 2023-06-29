@@ -2,10 +2,52 @@ import express from 'express';
 var films = express.Router();
 import Film from '../model/filmModel.js'
 
+/**
+ * @swagger
+ * tags:
+ *   name: Films
+ *   description: API endpoints for managing films
+ */
+
+/**
+ * @swagger
+ * /films:
+ *   get:
+ *     summary: Get all films
+ *     tags: [Films]
+ *     responses:
+ *       200:
+ *         description: Successful response with the list of films
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/model/filmModel'
+ *   post:
+ *     summary: Create a new film
+ *     tags: [Films]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           model:
+ *             $ref: '#/model/filmModel'
+ *     responses:
+ *       200:
+ *         description: Film created successfully
+ *         content:
+ *           application/json:
+ *             model:
+ *               $ref: '#/model/filmModel'
+ *       500:
+ *         description: Internal server error
+ */
 films.route('/')
     .get(async (req, res) => {
         const films = await Film.find();
-        return res.status(200).json(films);
+        if (films) return res.status(200).json(films)
+        else return res.status(500)
     })
     .post(async (req, res) => {
         const films = new Film({
@@ -14,16 +56,16 @@ films.route('/')
             pk : (new Date).getTime()
         });
         films.save((err, docs) => {
-            if(!err) res.send(docs);
-              else console.log("Can't reach data "+ err)
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
 
     films.route('/:pk')
     .get(async (req, res) => {
         Film.findOne(req.params, (err, docs) => {
-            if(!err)res.send(docs);
-            else console.log('can\'t find film');
+            if(!err) return res.status(200).send(docs);
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
     .put(async (req, res) => {
@@ -42,8 +84,8 @@ films.route('/')
     })
     .delete(async (req, res) => {
         Film.deleteOne(req.params, (err, docs) => {
-            if(!err) console.log('film deleted');
-            else console.log('Can\'t delete film');
+            if(!err) return res.status(200).json({message : "Film deleted successfully"});
+            else return res.status(500).json({ error : "internal server error"});
           });
     })
   

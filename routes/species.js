@@ -5,7 +5,8 @@ import Species from '../model/speciesModel.js'
 species.route('/')
     .get(async (req, res) => {
         const species = await Species.find();
-        return res.status(200).json(species);
+        if(!err)res.status(200).send(docs);
+        else json({ error : "internal server error"})
     })
     .post(async (req, res) => {
         const species = new Species({
@@ -14,16 +15,16 @@ species.route('/')
             pk : (new Date).getTime()
         });
         species.save((err, docs) => {
-            if(!err) res.send(docs);
-              else console.log("Can't reach data "+ err)
+            if(!err)res.status(200).send(docs);
+            else json({ error : "internal server error"})
           });
     })
 
     species.route('/:pk')
     .get(async (req, res) => {
         Species.findOne(req.params, (err, docs) => {
-            if(!err)res.send(docs);
-            else console.log('can\'t find specie');
+            if(!err)res.status(200).send(docs);
+            else json({ error : "internal server error"})
           });
     })
     .put(async (req, res) => {
@@ -42,8 +43,8 @@ species.route('/')
     })
     .delete(async (req, res) => {
         Species.deleteOne(req.params, (err, docs) => {
-            if(!err) console.log('specie deleted');
-            else console.log('Can\'t delete specie');
+            if(!err)res.status(200).json({message: "Specie successfully deleted."})
+            else json({ error : "internal server error"})
           });
     })
   
