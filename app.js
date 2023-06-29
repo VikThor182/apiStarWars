@@ -1,13 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+import createError from 'http-errors'
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import logger from "morgan";
+import './db.js'
+import { films } from './routes/films.js'
+import { species } from './routes/species.js'
+import { starships } from './routes/starships.js'
+import { planets } from './routes/planets.js'
+import { transports } from './routes/transports.js'
+import { vehicles } from './routes/vehicles.js'
+import index from './routes/routes.js'
+import { fileURLToPath } from 'url';
 
 var app = express();
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,10 +27,17 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', index);
+app.use('/films', films);
+app.use('/species', species);
+app.use('/starships', starships);
+app.use('/planets', planets);
+app.use('/transports', transports);
+app.use('/vehicles', vehicles);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,4 +55,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(3000, () => {
+  console.log("Server has started!")
+})
+
