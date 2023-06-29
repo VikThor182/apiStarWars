@@ -49,3 +49,214 @@ species.route('/')
     })
   
 export { species };
+
+/**
+ * @swagger
+ * tags:
+ *   name: Species
+ *   description: Routes for managing species
+ */
+
+/**
+ * @swagger
+ * /species:
+ *   get:
+ *     summary: Get all species
+ *     tags: [Species]
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/SpeciesResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *   post:
+ *     summary: Create a new species
+ *     tags: [Species]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Species'
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SpeciesResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
+/**
+ * @swagger
+ * /species/{pk}:
+ *   get:
+ *     summary: Get a species by its primary key
+ *     tags: [Species]
+ *     parameters:
+ *       - in: path
+ *         name: pk
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Primary key of the species
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SpeciesResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *   put:
+ *     summary: Update a species by its primary key
+ *     tags: [Species]
+ *     parameters:
+ *       - in: path
+ *         name: pk
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Primary key of the species
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Species'
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       404:
+ *         description: Specie not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *   delete:
+ *     summary: Delete a species by its primary key
+ *     tags: [Species]
+ *     parameters:
+ *       - in: path
+ *         name: pk
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Primary key of the species
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ * 
+ * 
+ */
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Species:
+ *       type: object
+ *       properties:
+ *         fields:
+ *           type: object
+ *           properties:
+ *             edited:
+ *               type: string
+ *               description: Date de la dernière édition de l'espèce.
+ *             classification:
+ *               type: string
+ *               description: Classification de l'espèce.
+ *             name:
+ *               type: string
+ *               description: Nom de l'espèce.
+ *             designation:
+ *               type: string
+ *               description: Désignation de l'espèce.
+ *             created:
+ *               type: string
+ *               description: Date de création de l'espèce.
+ *             eye_colors:
+ *               type: string
+ *               description: Couleurs des yeux de l'espèce.
+ *             people:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               description: Liste des personnages associés à l'espèce.
+ *             skin_colors:
+ *               type: string
+ *               description: Couleurs de peau de l'espèce.
+ *             language:
+ *               type: string
+ *               description: Langue parlée par l'espèce.
+ *             hair_colors:
+ *               type: string
+ *               description: Couleurs de cheveux de l'espèce.
+ *             homeworld:
+ *               type: number
+ *               description: Identifiant du monde d'origine de l'espèce.
+ *             average_lifespan:
+ *               type: string
+ *               description: Espérance de vie moyenne de l'espèce.
+ *             average_height:
+ *               type: string
+ *               description: Hauteur moyenne de l'espèce.
+ *           required:
+ *             - edited
+ *             - classification
+ *             - name
+ *             - designation
+ *             - created
+ *             - eye_colors
+ *             - skin_colors
+ *             - language
+ *             - hair_colors
+ *             - homeworld
+ *             - average_lifespan
+ *             - average_height
+ *         model:
+ *           type: string
+ *           description: Modèle de l'espèce.
+ *         pk:
+ *           type: number
+ *           description: Clé primaire de l'espèce.
+ */

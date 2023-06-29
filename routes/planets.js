@@ -49,3 +49,165 @@ planets.route('/')
     })
   
 export { planets };
+
+/**
+ * @swagger
+ * tags:
+ *   name: Planets
+ *   description: API endpoints for managing planets
+ */
+
+/**
+ * @swagger
+ * /planets:
+ *   get:
+ *     summary: Get all planets
+ *     tags: [Planets]
+ *     responses:
+ *       200:
+ *         description: Successful response with the list of planets
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Planet'
+ *       500:
+ *         description: Internal server error
+ */
+ /**
+     * @swagger
+     * /planets:
+     *   post:
+     *     summary: Create a new planet
+     *     tags: [Planets]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Planet'
+     *     responses:
+     *       200:
+     *         description: Planet created successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Planet'
+     *       500:
+     *         description: Internal server error
+     */
+ /**
+     * @swagger
+     * /planets/{pk}:
+     *   get:
+     *     summary: Get a planet by primary key
+     *     tags: [Planets]
+     *     parameters:
+     *       - in: path
+     *         name: pk
+     *         schema:
+     *           type: string
+     *         required: true
+     *         description: The primary key of the planet
+     *     responses:
+     *       200:
+     *         description: Successful response with the planet details
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Planet'
+     *       500:
+     *         description: Internal server error
+     */
+    /**
+ * @swagger
+ * /planets/{pk}:
+ *   put:
+ *     summary: Update a planet by primary key
+ *     tags: [Planets]
+ *     parameters:
+ *       - in: path
+ *         name: pk
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The primary key of the planet
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Planet'
+ *     responses:
+ *       200:
+ *         description: Planet updated successfully
+ *       404:
+ *         description: Planet not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       500:
+ *         description: Internal server error
+ */
+ /**
+     * @swagger
+     * /planets/{pk}:
+     *   delete:
+     *     summary: Delete a planet by primary key
+     *     tags: [Planets]
+     *     parameters:
+     *       - in: path
+     *         name: pk
+     *         schema:
+     *           type: string
+     *         required: true
+     *         description: The primary key of the planet
+     *     responses:
+     *       200:
+     *         description: Planet deleted successfully
+     *       500:
+     *         description: Internal server error
+     */
+    /**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Planets:
+ *       type: object
+ *       properties:
+ *         fields:
+ *           type: object
+ *           properties:
+ *             edited:
+ *               type: string
+ *             climate:
+ *               type: string
+ *             surface_water:
+ *               type: string
+ *             name:
+ *               type: string
+ *             diameter:
+ *               type: number
+ *             rotation_period:
+ *               type: number
+ *             created:
+ *               type: string
+ *             terrain:
+ *               type: string
+ *             gravity:
+ *               type: string
+ *             orbital_period:
+ *               type: number
+ *             population:
+ *               type: string
+ *         pk:
+ *           type: number
+ *         model:
+ *           type: string
+ *       required:
+ *         - fields
+ *         - pk
+ *         - model
+ */

@@ -11,13 +11,40 @@ import { starships } from './routes/starships.js'
 import { planets } from './routes/planets.js'
 import { transports } from './routes/transports.js'
 import { vehicles } from './routes/vehicles.js'
+import { peoples } from './routes/peoples.js'
 import index from './routes/routes.js'
 import { fileURLToPath } from 'url';
+import swaggerJSDoc from'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+
 
 var app = express();
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
+
+const swaggerDefinition = {
+  openapi: '3.0.0',
+  info: {
+    title: 'Star Wars API',
+    version: '1.0.0',
+    description: 'This an API about Star Wars speed run by the laziest Dev Victor Cousseau, enjoy it. This is the way.'
+  },
+  servers: [
+    {
+      url: 'http://localhost:3000',
+      description: 'Development server',
+    },
+  ],
+};
+
+const options = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ['./routes/*.js'],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,11 +59,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/films', films);
+app.use('/peoples', peoples);
 app.use('/species', species);
 app.use('/starships', starships);
 app.use('/planets', planets);
 app.use('/transports', transports);
 app.use('/vehicles', vehicles);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 
 // catch 404 and forward to error handler
